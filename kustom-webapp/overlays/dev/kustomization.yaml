@@ -1,9 +1,15 @@
-bases:
-- ../../base
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
 
-patches:
- - replicas.yaml
+bases:
+  - ../../base
+
+patchesStrategicMerge:
+  - replicas.yaml  # Correct field to apply patches
 
 configMapGenerator:
-- name: mykustom-map
-  env: config.properties
+  - name: mykustom-map
+    literals:
+      - BG_COLOR=#000000
+      - FONT_COLOR=#FFFFFF
+      - CUSTOM_HEADER=Welcome to the DEV environment!!
